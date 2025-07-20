@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TaskTracker</name>
+    </assembly>
+    <members>
+        <member name="T:TaskTracker.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:TaskTracker.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:TaskTracker.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:TaskTracker.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:TaskTracker.TaskContext">
+            <summary>
+            Entity Framework Core database context for TaskItems.
+            </summary>
+        </member>
+        <member name="P:TaskTracker.TaskContext.Tasks">
+            <summary>
+            The Tasks table.
+            </summary>
+        </member>
+        <member name="T:TaskTracker.TaskItem">
+            <summary>
+            Represents a task item.
+            </summary>
+        </member>
+        <member name="P:TaskTracker.TaskItem.Id">
+            <summary>
+            The unique identifier for the task.
+            </summary>
+        </member>
+        <member name="P:TaskTracker.TaskItem.Title">
+            <summary>
+            The title or description of the task.
+            </summary>
+        </member>
+        <member name="P:TaskTracker.TaskItem.Completed">
+            <summary>
+            Indicates whether the task is completed.
+            </summary>
+        </member>
+        <member name="M:TaskTracker.TasksController.GetTasks">
+            <summary>
+            Gets all tasks.
+            </summary>
+            <returns>List of all tasks.</returns>
+        </member>
+        <member name="M:TaskTracker.TasksController.GetTask(System.Int32)">
+            <summary>
+            Gets a task by ID.
+            </summary>
+            <param name="id">Task ID</param>
+            <returns>The task with the specified ID.</returns>
+        </member>
+        <member name="M:TaskTracker.TasksController.CreateTask(TaskTracker.TaskItem)">
+            <summary>
+            Creates a new task.
+            </summary>
+            <param name="taskItem">Task to create</param>
+            <returns>The created task.</returns>
+        </member>
+        <member name="M:TaskTracker.TasksController.UpdateTask(System.Int32,TaskTracker.TaskItem)">
+            <summary>
+            Updates an existing task.
+            </summary>
+            <param name="id">Task ID</param>
+            <param name="taskItem">Updated task data</param>
+            <returns>No content if successful, 404 if not found.</returns>
+        </member>
+        <member name="M:TaskTracker.TasksController.DeleteTask(System.Int32)">
+            <summary>
+            Deletes a task by ID.
+            </summary>
+            <param name="id">Task ID</param>
+            <returns>No content if successful, 404 if not found.</returns>
+        </member>
+    </members>
+</doc>
