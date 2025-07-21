@@ -1,3 +1,8 @@
 # .NET build artifacts
 bin/
-obj/ 
+obj/
+
+# SQLite database files
+*.db
+*.db-shm
+*.db-wal 

@@ -4,6 +4,7 @@ using TaskTracker;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers();
 builder.Services.AddDbContext<TaskContext>(options =>
     options.UseSqlite("Data Source=tasks.db"));
 builder.Services.AddEndpointsApiExplorer();
@@ -19,7 +20,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+app.MapControllers();
 
 app.Run();
 
