@@ -25,9 +25,16 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal
 
-      - name: Snyk security scan
+      - name: Snyk security scan (backend)
         uses: snyk/actions/dotnet@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: test --file=TaskTracker.sln
+
+      - name: Snyk security scan (frontend)
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test ./frontend
