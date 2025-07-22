@@ -1,0 +1,16 @@
+[Unit]
+Description=TaskTracker Backend API
+After=network.target
+
+[Service]
+Type=exec
+User=www-data
+WorkingDirectory=/var/www/tasktracker/backend
+ExecStart=/usr/bin/dotnet TaskTracker.dll
+Restart=always
+RestartSec=10
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=ASPNETCORE_URLS=http://localhost:5000
+
+[Install]
+WantedBy=multi-user.target 

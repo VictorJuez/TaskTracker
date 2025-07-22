@@ -1,0 +1,35 @@
+name: tasktracker
+services:
+  - name: backend
+    source_dir: /backend
+    github:
+      repo: VictorJuez/TaskTracker
+      branch: main
+    run_command: dotnet TaskTracker.dll
+    environment_slug: dotnet
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    routes:
+      - path: /api
+    envs:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://0.0.0.0:8080
+
+  - name: frontend
+    source_dir: /frontend
+    github:
+      repo: VictorJuez/TaskTracker
+      branch: main
+    run_command: npm start
+    environment_slug: node-js
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    routes:
+      - path: /
+    envs:
+      - key: REACT_APP_API_URL
+        value: https://backend-${APP_ID}.ondigitalocean.app/api
+      - key: PORT
+        value: 3000
