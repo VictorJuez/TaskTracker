@@ -37,5 +37,5 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: test ./frontend
-          args: --severity-threshold=high --dev-deps=false
+          command: test
+          args: --severity-threshold=high --dev-deps=false --all-projects
