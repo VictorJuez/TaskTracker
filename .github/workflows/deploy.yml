@@ -20,10 +20,6 @@ jobs:
           username: ${{ secrets.DROPLET_USER }}
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
-            # Set .NET environment variables
-            export DOTNET_ROOT=/usr/lib/dotnet
-            export PATH=$PATH:$DOTNET_ROOT
-
             # Check if this is initial setup or update
             if [ ! -d "/var/www/tasktracker" ]; then
               echo "🚀 Detected new droplet - running bootstrap..."
