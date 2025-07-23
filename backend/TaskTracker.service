@@ -1,5 +1,5 @@
 [Unit]
-Description=TaskTracker Backend API
+Description=TaskTracker Backend API (.NET 8)
 After=network.target
 
 [Service]

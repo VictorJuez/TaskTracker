@@ -108,7 +108,7 @@ chmod +x deploy.sh
 
 - **Purpose**: Initial droplet setup
 - **What it does**:
-  - Installs .NET 9, Node.js 18, Nginx
+  - Installs .NET 8, Node.js 18, Nginx
   - Configures environment variables
   - Sets up firewall and services
   - Clones repository

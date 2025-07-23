@@ -87,7 +87,7 @@ ssh root@YOUR_DROPLET_IP
 The script will:
 
 - Update the system
-- Install .NET 9 and Node.js 18
+- Install .NET 8 and Node.js 18
 - Clone your repository
 - Build both backend and frontend
 - Set up the database
@@ -143,7 +143,7 @@ Internet → Nginx (Port 80/443) → React Frontend (Static files)
 ```
 
 - **Nginx**: Serves static frontend files and proxies API requests
-- **Backend**: ASP.NET Core API running on port 5000
+- **Backend**: ASP.NET Core 8 API running on port 5000
 - **Database**: SQLite file (stored in `/var/www/tasktracker/backend/publish/`)
 
 ## Management Commands

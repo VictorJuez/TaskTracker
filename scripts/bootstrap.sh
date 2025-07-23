@@ -40,13 +40,13 @@ apt update && apt upgrade -y
 print_status "🔧 Installing required packages..."
 apt install -y nginx curl wget git unzip software-properties-common
 
-# Install .NET 9
-print_status "🔧 Installing .NET 9..."
+# Install .NET 8
+print_status "🔧 Installing .NET 8..."
 wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 apt update
-apt install -y dotnet-sdk-9.0
+apt install -y dotnet-sdk-8.0
 
 # Fix .NET environment variables
 print_status "🔧 Configuring .NET environment..."
