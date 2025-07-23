@@ -1,0 +1,39 @@
+name: Bootstrap New Droplet
+
+on:
+  workflow_dispatch:
+    inputs:
+      droplet_host:
+        description: "Droplet IP Address"
+        required: true
+        type: string
+      droplet_user:
+        description: "SSH Username (usually root)"
+        required: true
+        default: "root"
+        type: string
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Bootstrap Digital Ocean Droplet
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ github.event.inputs.droplet_host }}
+          username: ${{ github.event.inputs.droplet_user }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          script: |
+            # Download and run the bootstrap script
+            cd /tmp
+            curl -O https://raw.githubusercontent.com/VictorJuez/TaskTracker/main/scripts/bootstrap.sh
+            chmod +x bootstrap.sh
+            ./bootstrap.sh
+
+            echo "✅ Bootstrap completed successfully!"
+            echo "🎯 Your droplet is now ready for automated deployments"
+            echo "🌐 Application will be available at: http://${{ github.event.inputs.droplet_host }}"
