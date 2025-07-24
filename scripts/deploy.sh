@@ -38,9 +38,10 @@ fi
 
 print_status "🔄 Starting application deployment..."
 
-# Set .NET environment variables (in case they're not set)
-export DOTNET_ROOT=/usr/lib/dotnet
-export PATH=$PATH:$DOTNET_ROOT
+# Fix Git ownership issue
+print_status "🔧 Fixing Git ownership..."
+cd /var/www/tasktracker
+git config --global --add safe.directory /var/www/tasktracker
 
 # Navigate to application directory
 print_status "📁 Navigating to application directory..."
@@ -58,10 +59,10 @@ dotnet restore
 dotnet publish -c Release -o /var/www/tasktracker/backend/publish
 chown -R www-data:www-data /var/www/tasktracker/backend/publish
 
-# Run database migrations
+# Run database migrations (from project directory)
 print_status "🗄️ Running database migrations..."
-cd /var/www/tasktracker/backend/publish
-dotnet ef database update
+cd /var/www/tasktracker/backend
+dotnet-ef database update
 
 # Restart backend service
 print_status "⚙️ Restarting backend service..."
@@ -70,7 +71,17 @@ systemctl restart TaskTracker
 # Build frontend
 print_status "🔨 Building frontend..."
 cd /var/www/tasktracker/frontend
-npm ci --production
+
+# Clear npm cache to free memory
+print_status "🧹 Clearing npm cache..."
+npm cache clean --force
+
+# Install dependencies
+print_status "📦 Installing frontend dependencies..."
+npm ci --omit=dev --no-audit --no-fund --prefer-offline --maxsockets=1
+
+# Build the application
+print_status "🏗️ Building frontend application..."
 npm run build
 chown -R www-data:www-data /var/www/tasktracker/frontend/build
 

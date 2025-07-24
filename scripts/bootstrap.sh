@@ -40,6 +40,19 @@ apt update && apt upgrade -y
 print_status "🔧 Installing required packages..."
 apt install -y nginx curl wget git unzip software-properties-common
 
+# Setup swap space for memory optimization
+print_status "💾 Setting up swap space..."
+if [ ! -f /swapfile ]; then
+    fallocate -l 1G /swapfile
+    chmod 600 /swapfile
+    mkswap /swapfile
+    swapon /swapfile
+    echo '/swapfile none swap sw 0 0' >> /etc/fstab
+    print_success "1GB swap space created and activated"
+else
+    print_warning "Swap file already exists, skipping creation"
+fi
+
 # Install .NET 8
 print_status "🔧 Installing .NET 8..."
 wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
@@ -47,15 +60,6 @@ dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 apt update
 apt install -y dotnet-sdk-8.0
-
-# Fix .NET environment variables
-print_status "🔧 Configuring .NET environment..."
-export DOTNET_ROOT=/usr/lib/dotnet
-export PATH=$PATH:$DOTNET_ROOT
-
-# Make environment variables permanent
-echo "DOTNET_ROOT=/usr/lib/dotnet" >> /etc/environment
-echo "PATH=\$PATH:\$DOTNET_ROOT" >> /etc/environment
 
 # Verify .NET installation
 print_status "🔍 Verifying .NET installation..."
@@ -65,6 +69,10 @@ else
     print_error "NET installation verification failed"
     exit 1
 fi
+
+# Install Entity Framework tools
+print_status "🔧 Installing Entity Framework tools..."
+dotnet tool install --global dotnet-ef
 
 # Install Node.js 18
 print_status "🔧 Installing Node.js 18..."
@@ -103,4 +111,5 @@ ufw --force enable
 
 print_success "✅ Bootstrap setup completed!"
 print_status "🎯 Ready for automated deployment via GitHub Actions"
-print_status "🌐 Your application will be available at: http://$(curl -s ifconfig.me)" 
+print_status "🌐 Your application will be available at: http://$(curl -s ifconfig.me)"
+print_status "💾 Swap space: $(free -h | grep Swap | awk '{print $2}') available" 
