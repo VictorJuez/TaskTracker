@@ -82,7 +82,8 @@ apt install -y nodejs
 # Create application directory
 print_status "📁 Creating application directory..."
 mkdir -p /var/www/tasktracker
-chown www-data:www-data /var/www/tasktracker
+mkdir -p /var/www/.dotnet
+chown -R www-data:www-data /var/www
 
 # Clone repository
 print_status "📥 Cloning repository..."
