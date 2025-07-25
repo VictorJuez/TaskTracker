@@ -66,6 +66,16 @@ chown -R www-data:www-data /var/www/tasktracker/backend/publish
 # Run database migrations (from project directory)
 print_status "🗄️ Running database migrations..."
 cd /var/www/tasktracker/backend
+
+# Debug information
+print_status "🔍 Debug info:"
+echo "Current user: $(whoami)"
+echo "Current directory: $(pwd)"
+echo "PATH: $PATH"
+echo "DOTNET_ROOT: $DOTNET_ROOT"
+echo "dotnet version: $(dotnet --version)"
+echo "dotnet-ef location: $(which dotnet-ef 2>/dev/null || echo 'not found')"
+
 dotnet-ef database update
 
 # Copy database to publish directory (always copy to ensure latest schema)
