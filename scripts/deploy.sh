@@ -68,6 +68,16 @@ print_status "🗄️ Running database migrations..."
 cd /var/www/tasktracker/backend
 dotnet-ef database update
 
+# Copy database to publish directory (always copy to ensure latest schema)
+print_status "📋 Copying database to publish directory..."
+if [ -f "TaskTracker.db" ]; then
+    cp TaskTracker.db /var/www/tasktracker/backend/publish/
+    chown www-data:www-data /var/www/tasktracker/backend/publish/TaskTracker.db
+    print_success "Database copied to publish directory"
+else
+    print_warning "No database file found after migration"
+fi
+
 # Restart backend service
 print_status "⚙️ Restarting backend service..."
 systemctl restart TaskTracker
