@@ -99,9 +99,21 @@ print_status "🏗️ Building frontend application..."
 npm run build
 chown -R www-data:www-data /var/www/tasktracker/frontend/build
 
-# Reload Nginx
-print_status "🌐 Reloading Nginx..."
-nginx -s reload
+# Update Nginx configuration
+print_status "🌐 Updating Nginx configuration..."
+cp /var/www/tasktracker/nginx.conf /etc/nginx/sites-available/tasktracker
+
+# Test Nginx configuration
+print_status "🔍 Testing Nginx configuration..."
+if nginx -t; then
+    print_success "Nginx configuration is valid"
+    # Reload Nginx
+    print_status "🌐 Reloading Nginx..."
+    nginx -s reload
+else
+    print_error "Nginx configuration is invalid"
+    exit 1
+fi
 
 # Verify deployment
 print_status "🔍 Verifying deployment..."
