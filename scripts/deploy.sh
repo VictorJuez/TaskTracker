@@ -83,6 +83,14 @@ if [[ ":$PATH:" != *":$HOME/.dotnet/tools:"* ]]; then
     echo "Updated PATH: $PATH"
 fi
 
+# Install dotnet-ef tools if not available
+if ! command -v dotnet-ef &> /dev/null; then
+    print_status "🔧 Installing Entity Framework tools..."
+    dotnet tool install --global dotnet-ef
+    export PATH="$PATH:$HOME/.dotnet/tools"
+    echo "dotnet-ef location after install: $(which dotnet-ef 2>/dev/null || echo 'still not found')"
+fi
+
 dotnet-ef database update
 
 # Copy database to publish directory (always copy to ensure latest schema)
