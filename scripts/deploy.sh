@@ -76,6 +76,13 @@ echo "DOTNET_ROOT: $DOTNET_ROOT"
 echo "dotnet version: $(dotnet --version)"
 echo "dotnet-ef location: $(which dotnet-ef 2>/dev/null || echo 'not found')"
 
+# Add dotnet tools to PATH if not already there
+if [[ ":$PATH:" != *":$HOME/.dotnet/tools:"* ]]; then
+    print_status "🔧 Adding dotnet tools to PATH..."
+    export PATH="$PATH:$HOME/.dotnet/tools"
+    echo "Updated PATH: $PATH"
+fi
+
 dotnet-ef database update
 
 # Copy database to publish directory (always copy to ensure latest schema)
