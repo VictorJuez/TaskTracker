@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace TaskTracker
 {
     [ApiController]
-    [Route("tasks")]
+    [Route("api/[controller]")]
     public class TasksController : ControllerBase
     {
         private readonly TaskContext _context;

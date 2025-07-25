@@ -6,7 +6,7 @@ interface TaskItem {
   completed: boolean;
 }
 
-const API_URL = process.env.REACT_APP_API_URL || "/tasks";
+const API_URL = process.env.REACT_APP_API_URL || "/api/tasks";
 
 function App() {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
