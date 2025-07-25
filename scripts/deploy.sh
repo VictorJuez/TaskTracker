@@ -52,6 +52,10 @@ print_status "📥 Pulling latest changes..."
 git pull origin main
 chown -R www-data:www-data /var/www/tasktracker
 
+# Stop backend service before building
+print_status "⏹️ Stopping backend service..."
+systemctl stop TaskTracker
+
 # Build backend
 print_status "🔨 Building backend..."
 cd backend
